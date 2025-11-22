@@ -639,7 +639,7 @@ img {
   }
   /* Spezifisch: Leistungen-Hero (nur Mobile) – Text kleiner, Overlay leichter */
   #leistungen-hero {
-    min-height: 48vh;
+    min-height: 40vh;
     background-size: cover !important; /* Bild bleibt großflächig */
   }
   #leistungen-hero::before {
@@ -655,8 +655,29 @@ img {
   }
   #leistungen-hero .section-description {
     font-size: 0.95rem;
-    line-height: 1.5;
+    line-height: 1.45;
     max-width: 100%;
+    margin-bottom: 0;
+  }
+  /* Kontaktseite: Hero (nur Mobile) kompakter und mit leichterem Overlay */
+  .hero-small {
+    min-height: 44vh;
+  }
+  .hero.hero-small::before {
+    background: rgba(0, 0, 0, 0.45);
+  }
+  .hero-small .hero-content {
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+  }
+  .hero-small .hero-content h1 {
+    font-size: 1.6rem;
+    margin-bottom: var(--space-2);
+  }
+  .hero-small .hero-content h2 {
+    font-size: 1rem;
+    line-height: 1.45;
+    margin-bottom: 0;
   }
 }
 /* ========================================
