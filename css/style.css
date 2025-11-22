@@ -609,6 +609,34 @@ img {
   .hero .hero-video {
     object-position: center 35%;
   }
+  /* Typografie und Spacing für bessere Lesbarkeit auf Phones */
+  .hero .section-subtitle {
+    font-size: 0.75rem;
+    margin-bottom: var(--space-2);
+  }
+  .hero h1 {
+    font-size: 1.75rem;
+    line-height: 1.15;
+    margin-bottom: var(--space-4);
+  }
+  .hero .hero-lead {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: var(--space-6);
+  }
+  .hero-trust {
+    display: none; /* Logos auf Phones ausblenden, um Überlauf zu vermeiden */
+  }
+  .hero-buttons {
+    gap: var(--space-3);
+  }
+  .hero-buttons .btn {
+    padding: var(--space-2) var(--space-4);
+    font-size: 0.95rem;
+    width: 100%;
+    max-width: 320px;
+    justify-content: center;
+  }
 }
 /* ========================================
    BUTTONS - Glassmorphism Style
