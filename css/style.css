@@ -661,22 +661,26 @@ img {
   }
   /* Kontaktseite: Hero (nur Mobile) kompakter und mit leichterem Overlay */
   .hero-small {
-    min-height: 44vh;
+    min-height: 40vh;
+  }
+  .hero.hero-small {
+    background-size: cover !important;
+    background-position: center 35% !important;
   }
   .hero.hero-small::before {
-    background: rgba(0, 0, 0, 0.45);
+    background: rgba(0, 0, 0, 0.35);
   }
   .hero-small .hero-content {
     padding-left: var(--space-4);
     padding-right: var(--space-4);
   }
   .hero-small .hero-content h1 {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     margin-bottom: var(--space-2);
   }
   .hero-small .hero-content h2 {
-    font-size: 1rem;
-    line-height: 1.45;
+    font-size: 0.95rem;
+    line-height: 1.4;
     margin-bottom: 0;
   }
 }
