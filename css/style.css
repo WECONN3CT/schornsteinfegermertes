@@ -637,6 +637,27 @@ img {
     max-width: 320px;
     justify-content: center;
   }
+  /* Spezifisch: Leistungen-Hero (nur Mobile) – Text kleiner, Overlay leichter */
+  #leistungen-hero {
+    min-height: 56vh;
+    background-size: cover !important; /* Bild bleibt großflächig */
+  }
+  #leistungen-hero::before {
+    background: rgba(0, 0, 0, 0.45); /* dunkle Maske deutlich leichter */
+  }
+  #leistungen-hero .hero-content {
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+  }
+  #leistungen-hero h1 {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-3);
+  }
+  #leistungen-hero .section-description {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    max-width: 100%;
+  }
 }
 /* ========================================
    BUTTONS - Glassmorphism Style
