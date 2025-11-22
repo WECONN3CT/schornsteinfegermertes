@@ -1,0 +1,64 @@
+name: Convert MOV to MP4
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - "videos/**/*.MOV"
+      - "videos/**/*.mov"
+      - ".github/workflows/convert-mov-to-mp4.yml"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository (with LFS)
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Install ffmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Fetch LFS objects
+        run: |
+          git lfs install
+          git lfs fetch --all
+          git lfs checkout
+
+      - name: Convert MOV to MP4 (same basename)
+        shell: bash
+        run: |
+          shopt -s globstar nullglob
+          changed=0
+          for f in videos/**/*.[Mm][Oo][Vv]; do
+            base="${f%.*}"
+            out="${base}.mp4"
+            echo "Converting: $f -> $out"
+            # Nur konvertieren, wenn MP4 fehlt oder MOV neuer ist
+            if [[ ! -f "$out" || "$f" -nt "$out" ]]; then
+              ffmpeg -y -i "$f" -c:v libx264 -crf 20 -preset slow -pix_fmt yuv420p -profile:v high -level 4.1 -c:a aac -b:a 192k -movflags +faststart "$out"
+              changed=1
+            else
+              echo "Skipping (up-to-date): $out"
+            fi
+          done
+          echo "changed=$changed" >> $GITHUB_OUTPUT
+        id: convert
+
+      - name: Commit and push MP4 outputs
+        if: steps.convert.outputs.changed == '1'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add videos/**/*.mp4
+          git commit -m "chore: convert MOV to MP4 via CI"
+          git push
+
+
