@@ -578,6 +578,38 @@ img {
 @media (max-width: 640px) {
   .hero--improved .hero-usps { row-gap: var(--space-3); }
 }
+/* Mobile/Tablet: Hero-Section robuster anpassen */
+@media (max-width: 1024px) {
+  .hero {
+    min-height: 75vh; /* etwas kompakter auf Tablet */
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  .hero--improved .hero-inner {
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+    row-gap: var(--space-8);
+  }
+  .hero .hero-video {
+    object-position: center 40%; /* Fokus etwas höher */
+  }
+}
+@media (max-width: 640px) {
+  .hero {
+    min-height: 72vh; /* kompakter auf kleinen Phones */
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  .hero-content {
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+  }
+  /* Visuelle Seite im Hero auf sehr kleinen Screens ausblenden zugunsten der Copy */
+  .hero--improved .hero-visual {
+    display: none;
+  }
+  .hero .hero-video {
+    object-position: center 35%;
+  }
+}
 /* ========================================
    BUTTONS - Glassmorphism Style
    ======================================== */
