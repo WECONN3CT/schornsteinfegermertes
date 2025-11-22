@@ -79,42 +79,61 @@
       // Pointer-Handling für vertikale Variante (und horizontal fallback)
       const isVertical = container.classList.contains('before-after--vertical');
       let dragging = false;
+      let lastEvt = null;
+      let rafId = 0;
+      let cachedRect = null;
       const clamp = (v) => Math.min(100, Math.max(0, v));
-
-      const setFromEvent = (e) => {
-        const rect = container.getBoundingClientRect();
+      const applyFromEvent = (e, rect) => {
+        let clientX, clientY;
+        if (e.touches && e.touches[0]) {
+          clientX = e.touches[0].clientX;
+          clientY = e.touches[0].clientY;
+        } else {
+          clientX = e.clientX;
+          clientY = e.clientY;
+        }
         let percent;
         if (isVertical) {
-          const clientY = e.touches ? e.touches[0].clientY : e.clientY;
           percent = ((clientY - rect.top) / rect.height) * 100;
         } else {
-          const clientX = e.touches ? e.touches[0].clientX : e.clientX;
           percent = ((clientX - rect.left) / rect.width) * 100;
         }
         percent = clamp(percent);
-        slider.value = percent;
-        container.style.setProperty('--pos', `${percent}%`);
+        const rounded = Math.round(percent);
+        if (String(slider.value) !== String(rounded)) {
+          slider.value = String(rounded);
+          container.style.setProperty('--pos', `${percent}%`);
+        }
       };
-
       const onPointerDown = (e) => {
         dragging = true;
-        setFromEvent(e);
-        e.preventDefault();
+        cachedRect = container.getBoundingClientRect();
+        lastEvt = e;
+        applyFromEvent(e, cachedRect);
+        document.addEventListener('pointermove', onPointerMove, { passive: true });
+        document.addEventListener('pointerup', onPointerUp, { passive: true, once: true });
+        document.addEventListener('pointercancel', onPointerUp, { passive: true, once: true });
       };
       const onPointerMove = (e) => {
         if (!dragging) return;
-        setFromEvent(e);
-        e.preventDefault();
+        lastEvt = e;
+        if (!rafId) {
+          rafId = requestAnimationFrame(() => {
+            applyFromEvent(lastEvt, cachedRect || container.getBoundingClientRect());
+            rafId = 0;
+          });
+        }
       };
-      const onPointerUp = () => { dragging = false; };
-
+      const onPointerUp = () => {
+        dragging = false;
+        if (rafId) {
+          cancelAnimationFrame(rafId);
+          rafId = 0;
+        }
+        document.removeEventListener('pointermove', onPointerMove);
+      };
+      window.addEventListener('resize', () => { if (dragging) cachedRect = container.getBoundingClientRect(); }, { passive: true });
       container.addEventListener('pointerdown', onPointerDown);
-      window.addEventListener('pointermove', onPointerMove);
-      window.addEventListener('pointerup', onPointerUp);
-      // Touch fallback
-      container.addEventListener('touchstart', onPointerDown, { passive: false });
-      window.addEventListener('touchmove', onPointerMove, { passive: false });
-      window.addEventListener('touchend', onPointerUp);
     });
   }
 

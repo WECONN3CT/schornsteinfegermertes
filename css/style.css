@@ -1181,6 +1181,7 @@ section {
   box-shadow: var(--shadow-xl);
   background: #000;
   --pos: 50%;
+  touch-action: none; /* verhindert Scroll-Jitter beim Drag auf Touch-Geräten */
 }
 .before-after img {
   width: 100%;
@@ -1200,6 +1201,7 @@ section {
   z-index: 2;
   /* nur maskieren, Bild bleibt voller Größe */
   clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+  will-change: clip-path; /* glattere Updates während Drag */
 }
 .before-after__after img {
   width: 100%;
@@ -1242,6 +1244,7 @@ section {
   appearance: none;
   background: transparent;
   cursor: ew-resize;
+  touch-action: none; /* verhindert Scrollen während Drag */
 }
 .before-after__slider:focus { outline: none; }
 .before-after__slider::-webkit-slider-runnable-track {
