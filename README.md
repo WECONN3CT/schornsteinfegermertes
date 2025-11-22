@@ -100,10 +100,13 @@ MertesWebseite/
 
 ## 🎨 Farbschema
 
-- **Primärfarbe**: `#2ea3f2` (Blau) - Vertrauen und Professionalität
-- **Akzentfarbe**: `#e09900` (Gold/Orange) - Wärme und Tradition
-- **Dunkel**: `#1a1a2e` - Eleganz
-- **Hell**: `#ffffff` - Klarheit
+- **Primär (Gold)**: `#C9A962`
+- **Gold Light**: `#D4B574`
+- **Gold Dark**: `#B8983F`
+- **Schwarz**: `#0a0a0a`
+- **Schwarz (Soft)**: `#1a1a1a`
+- **Weiß**: `#ffffff`
+- **Grau 600**: `#737373`
 
 ## 🚀 Verwendung
 
@@ -115,6 +118,12 @@ Die Webseite kann auf jedem Standard-Webserver gehostet werden:
 - Alle Pfade sind relativ
 - Keine serverseitigen Abhängigkeiten
 - Statische HTML/CSS/JS Dateien
+
+#### GitHub Pages Hinweise
+- MP4-Videos müssen < 100 MB sein (GitHub Limit).
+- MOV wird von GitHub Pages nicht über LFS ausgeliefert – daher MP4 verwenden.
+- Empfohlene ffmpeg-Einstellungen:
+  - `ffmpeg -i input.mov -c:v libx264 -crf 22 -preset slow -pix_fmt yuv420p -c:a aac -b:a 160k -movflags +faststart output.mp4`
 
 ## 📱 Responsive Breakpoints
 
@@ -138,9 +147,5 @@ Bilder im `images/` Ordner ersetzen, Dateinamen in HTML anpassen.
 **Schornsteinfegermeister Michael Mertes**
 - Trierer Str. 22, 53894 Mechernich
 - Telefon: 0171 1961771
-- E-Mail: info@schornsteinfeger-mertes.de
+- E-Mail: schornsteinfeger-mertes@gmx.de
 
----
-
-**Webdesign**: made with ❤️ by zibit
-**Erstellt**: 2025
