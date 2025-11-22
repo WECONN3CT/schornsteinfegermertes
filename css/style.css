@@ -1520,6 +1520,29 @@ section {
   }
 }
 
+/* Kamerainspektion – „Unser Inspektions‑Prozess“: Mobile Fix für überschnittene Boxen */
+@media (max-width: 768px) {
+  #inspektions-prozess {
+    gap: var(--space-6) !important; /* Abstand zwischen Textkarte und Video */
+  }
+  #inspektions-prozess .card {
+    height: auto !important; /* Inhalt darf natürlich wachsen */
+    border-right: 1px solid rgba(255, 255, 255, 0.6) !important; /* auf Mobile wieder vollständige Umrandung */
+    border-top-right-radius: var(--radius-lg) !important;
+    border-bottom-right-radius: var(--radius-lg) !important;
+  }
+  #inspektions-prozess > div:last-child {
+    border-left: 1px solid rgba(255, 255, 255, 0.6) !important; /* vollständige Umrandung */
+    border-radius: var(--radius-lg) !important;
+    overflow: hidden;
+  }
+  #inspektions-prozess video {
+    height: auto !important; /* verhindert Überlappung */
+    aspect-ratio: 16 / 9;    /* saubere, responsive Höhe */
+    display: block;
+  }
+}
+
 /* ========================================
    TESTIMONIALS - Glassmorphism
    ======================================== */
