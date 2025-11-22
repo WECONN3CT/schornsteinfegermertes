@@ -50,11 +50,29 @@
     width: 100%; /* volle Breite im mobilen Layout */
     transform: none; /* Verschiebung auf Mobile zurücksetzen */
   }
+  .values-section::before {
+    background-position: center 35%;
+    background-size: cover;
+  }
   .values-grid {
     width: 100%;
     grid-template-columns: 1fr; /* mobil einspaltig */
     transform: translateY(var(--space-8)); /* mobil ebenfalls weiter nach unten */
     margin-right: 0; /* mobil zentriert lassen */
+  }
+}
+@media (max-width: 640px) {
+  .values-section {
+    padding-bottom: var(--space-12);
+  }
+  .values-grid {
+    gap: var(--space-4);
+  }
+  .values-grid .card .card-deco-icon {
+    opacity: 0.18;
+    top: calc(var(--space-6) * -1);
+    right: calc(var(--space-6) * -1);
+    font-size: clamp(64px, 24vw, 120px);
   }
 }
 /* ========================================
