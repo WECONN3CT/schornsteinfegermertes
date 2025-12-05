@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../../css/style.css">
+    <link rel="preload" as="video" href="../../videos/rauchmelder.mp4" type="video/mp4">
 </head>
 <body>
 
@@ -45,7 +46,7 @@
 
     <!-- Hero Section -->
     <section class="hero hero--light" style="min-height: 50vh;">
-        <video class="hero-video" autoplay muted playsinline webkit-playsinline loop preload="auto" aria-hidden="true">
+        <video class="hero-video" autoplay muted playsinline webkit-playsinline loop preload="auto" fetchpriority="high" aria-hidden="true">
             <source src="../../videos/rauchmelder.mp4" type="video/mp4">
         </video>
         <div class="hero-content">
@@ -112,7 +113,7 @@
                 <div class="card reveal">
                     <div class="card-icon">
                         <i class="fas fa-fire"></i>
-                    </div>
+                    </div> 
                     <h4>Alarmierend: Die Statistik</h4>
                     <p>Die meisten Brandopfer verunglücken nachts zwischen 23 und 7 Uhr. Ohne Rauchwarnmelder bemerken Bewohner den Brand oft zu spät.</p>
                     <div style="background: var(--gray-100); padding: var(--space-4); border-radius: var(--radius-md); margin-top: var(--space-4);">
