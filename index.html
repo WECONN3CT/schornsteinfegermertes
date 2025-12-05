@@ -10,9 +10,16 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/logo.png">
 
-    <!-- Google Fonts -->
+    <!-- Preconnect für externe Ressourcen -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+
+    <!-- Preload kritische Ressourcen -->
+    <link rel="preload" href="css/style.css" as="style">
+    <link rel="preload" href="images/heromertes.png" as="image" fetchpriority="high">
+
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
     <!-- Font Awesome -->
@@ -56,7 +63,7 @@
 
     <!-- Hero Section -->
     <section class="hero hero--improved">
-        <video class="hero-video" autoplay muted playsinline webkit-playsinline loop poster="images/Header_Background.jpg" aria-hidden="true" preload="auto">
+        <video class="hero-video" autoplay muted playsinline webkit-playsinline loop poster="images/Header_Background.jpg" aria-hidden="true" preload="metadata">
             <source src="videos/herovideo.mp4?v=3" type="video/mp4">
         </video>
         <div class="container hero-inner">
@@ -291,7 +298,7 @@
     </button>
 
     <!-- JavaScript -->
-    <script src="js/main.js"></script>
+    <script src="js/main.js" defer></script>
 
     <!-- SVG Filter für gleichmäßige goldene Outline um das Hero-Bild -->
     <svg xmlns="http://www.w3.org/2000/svg" style="position: absolute; width: 0; height: 0; overflow: hidden;" aria-hidden="true" focusable="false">
