@@ -536,16 +536,19 @@
     const forms = document.querySelectorAll('.contact-form');
 
     forms.forEach(form => {
-      form.addEventListener('submit', function(e) {
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
         // Basic validation
         const name = form.querySelector('input[name="name"]');
         const email = form.querySelector('input[name="email"]');
         const message = form.querySelector('textarea[name="message"]');
+        const submitBtn = form.querySelector('button[type="submit"]');
 
         let isValid = true;
 
-        // Clear previous errors
-        form.querySelectorAll('.error').forEach(error => error.remove());
+        // Clear previous errors and success messages
+        form.querySelectorAll('.error, .success').forEach(el => el.remove());
         // Reset border colors
         [name, email, message].forEach(input => {
           if (input) input.style.borderColor = '';
@@ -572,11 +575,39 @@
           isValid = false;
         }
 
-        if (!isValid) {
-          // Block submission only if validation fails
-          e.preventDefault();
+        if (!isValid) return;
+
+        // Send via AJAX to Formspree
+        const formAction = form.getAttribute('action');
+        if (!formAction) return;
+
+        // Disable button and show loading state
+        const originalBtnText = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Wird gesendet...';
+
+        try {
+          const formData = new FormData(form);
+          const response = await fetch(formAction, {
+            method: 'POST',
+            body: formData,
+            headers: {
+              'Accept': 'application/json'
+            }
+          });
+
+          if (response.ok) {
+            showSuccess(form, 'Vielen Dank für Ihre Nachricht! Wir werden uns bald bei Ihnen melden.');
+            form.reset();
+          } else {
+            showError(submitBtn, 'Es gab ein Problem beim Senden. Bitte versuchen Sie es erneut.');
+          }
+        } catch (error) {
+          showError(submitBtn, 'Es gab ein Problem beim Senden. Bitte versuchen Sie es erneut.');
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnText;
         }
-        // If valid, form submits normally to Formspree
       });
     });
   }
