@@ -537,8 +537,6 @@
 
     forms.forEach(form => {
       form.addEventListener('submit', function(e) {
-        e.preventDefault();
-
         // Basic validation
         const name = form.querySelector('input[name="name"]');
         const email = form.querySelector('input[name="email"]');
@@ -548,6 +546,10 @@
 
         // Clear previous errors
         form.querySelectorAll('.error').forEach(error => error.remove());
+        // Reset border colors
+        [name, email, message].forEach(input => {
+          if (input) input.style.borderColor = '';
+        });
 
         // Validate name
         if (!name.value.trim()) {
@@ -570,13 +572,11 @@
           isValid = false;
         }
 
-        if (isValid) {
-          // Submit form or send via AJAX
-          console.log('Form is valid, ready to submit');
-          // You can add AJAX submission here
-          showSuccess(form, 'Vielen Dank für Ihre Nachricht! Wir werden uns bald bei Ihnen melden.');
-          form.reset();
+        if (!isValid) {
+          // Block submission only if validation fails
+          e.preventDefault();
         }
+        // If valid, form submits normally to Formspree
       });
     });
   }
