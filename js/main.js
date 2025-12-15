@@ -21,6 +21,8 @@
     initHeroVideoAutoplay();
     initVideoOverlay();
     initVideoCtaFullscreen();
+    initFormValidation();
+    initLazyLoading();
   });
 
   // ========================================
@@ -187,7 +189,6 @@
     heroVideo.setAttribute('muted', '');
     heroVideo.playsInline = true;
     heroVideo.setAttribute('playsinline', '');
-    heroVideo.setAttribute('webkit-playsinline', '');
 
     const tryPlay = () => {
       const playPromise = heroVideo.play();
@@ -388,7 +389,7 @@
 
     if (parallaxElements.length === 0) return;
 
-    window.addEventListener('scroll', function() {
+    const updateParallax = throttle(function() {
       const scrolled = window.pageYOffset;
 
       parallaxElements.forEach(element => {
@@ -396,7 +397,9 @@
         const yPos = -(scrolled * speed);
         element.style.transform = `translateY(${yPos}px)`;
       });
-    });
+    }, 16); // ~60fps
+
+    window.addEventListener('scroll', updateParallax, { passive: true });
   }
 
   // ========================================
@@ -648,71 +651,6 @@
   }
 
   // ========================================
-  // COUNTER ANIMATION (for stats)
-  // ========================================
-
-  function initCounterAnimation() {
-    const counters = document.querySelectorAll('.counter');
-
-    const counterObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const counter = entry.target;
-          const target = parseInt(counter.dataset.target);
-          const duration = parseInt(counter.dataset.duration) || 2000;
-          const increment = target / (duration / 16);
-
-          let current = 0;
-          const updateCounter = () => {
-            current += increment;
-            if (current < target) {
-              counter.textContent = Math.ceil(current);
-              requestAnimationFrame(updateCounter);
-            } else {
-              counter.textContent = target;
-            }
-          };
-
-          updateCounter();
-          counterObserver.unobserve(counter);
-        }
-      });
-    }, { threshold: 0.5 });
-
-    counters.forEach(counter => {
-      counterObserver.observe(counter);
-    });
-  }
-
-  // ========================================
-  // TYPING EFFECT (optional for hero)
-  // ========================================
-
-  function initTypingEffect() {
-    const typingElements = document.querySelectorAll('.typing-effect');
-
-    typingElements.forEach(element => {
-      const text = element.textContent;
-      element.textContent = '';
-      element.style.opacity = '1';
-
-      let index = 0;
-      const speed = 50;
-
-      function type() {
-        if (index < text.length) {
-          element.textContent += text.charAt(index);
-          index++;
-          setTimeout(type, speed);
-        }
-      }
-
-      // Start typing after a delay
-      setTimeout(type, 500);
-    });
-  }
-
-  // ========================================
   // UTILITY FUNCTIONS
   // ========================================
 
@@ -746,8 +684,6 @@
   // Add to window object for debugging
   window.MertesWebsite = {
     initFormValidation,
-    initCounterAnimation,
-    initTypingEffect,
     initLazyLoading
   };
 
