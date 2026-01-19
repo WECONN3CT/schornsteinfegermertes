@@ -1093,11 +1093,19 @@ section {
   font-size: 1.5rem;
   box-shadow: var(--shadow-gold), inset 0 1px 0 rgba(255, 255, 255, 0.3);
   transition: var(--transition);
+  overflow: hidden;
 }
 
 .card:hover .card-icon {
   transform: scale(1.1) rotate(5deg);
   box-shadow: var(--shadow-gold), 0 0 20px rgba(201, 169, 98, 0.4);
+}
+
+.card-icon img {
+  width: 140%;
+  height: 140%;
+  object-fit: cover;
+  border-radius: var(--radius-md);
 }
 
 .card h3 {
