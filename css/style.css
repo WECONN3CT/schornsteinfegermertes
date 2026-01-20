@@ -402,6 +402,10 @@ img {
 .hero.hero--light::before {
   background: rgba(0, 0, 0, 0.35);
 }
+/* Dunkleres Overlay für Energieberatung */
+.hero.hero--energieberatung::before {
+  background: rgba(0, 0, 0, 0.55);
+}
 /* Über-uns: Untertitel in der Hero-Section sanft von unten einschwenken */
 .hero.hero--ueber-uns .hero-content .section-description {
   opacity: 0;
