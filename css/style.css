@@ -1680,7 +1680,7 @@ footer {
 }
 .footer-bottom a:hover {
   color: var(--gold-light);
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 /* ========================================
