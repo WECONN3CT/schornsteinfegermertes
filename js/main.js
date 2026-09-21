@@ -249,45 +249,45 @@
 
   function initScrollAnimations() {
     const revealElements = document.querySelectorAll('.reveal');
+    const valuesGrid = document.querySelector('.values-grid');
 
+    // Wer weniger Bewegung möchte, bekommt alles sofort zu sehen.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      revealElements.forEach((el) => el.classList.add('active'));
+      if (valuesGrid) valuesGrid.classList.add('stagger-in');
+      return;
+    }
+
+    // rootMargin unten positiv: die Animation startet, bevor das Element
+    // in den Sichtbereich kommt, damit es beim Ankommen schon steht.
     const revealOnScroll = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-          // Optional: Stop observing after animation
-          // observer.unobserve(entry.target);
-        }
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('active');
+        observer.unobserve(entry.target);
       });
     }, {
-      threshold: 0.15,
-      rootMargin: '0px 0px -50px 0px'
+      threshold: 0,
+      rootMargin: '0px 0px 15% 0px'
     });
 
-    revealElements.forEach(element => {
+    revealElements.forEach((element) => {
       revealOnScroll.observe(element);
     });
 
-    // Stagger animations for grid items
-    const staggeredElements = document.querySelectorAll('.grid > *');
-    staggeredElements.forEach((element, index) => {
-      element.style.transitionDelay = `${index * 0.1}s`;
-    });
-
     // Werte-Karten nacheinander einfliegen lassen, getriggert durch die oberste Karte
-    const valuesGrid = document.querySelector('.values-grid');
     if (valuesGrid) {
       const firstCard = valuesGrid.querySelector('.card');
       if (firstCard) {
         const gridObserver = new IntersectionObserver((entries, obs) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              valuesGrid.classList.add('stagger-in');
-              obs.unobserve(entry.target);
-            }
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            valuesGrid.classList.add('stagger-in');
+            obs.unobserve(entry.target);
           });
         }, {
-          threshold: 0.4,
-          rootMargin: '0px 0px -10% 0px'
+          threshold: 0,
+          rootMargin: '0px 0px 15% 0px'
         });
         gridObserver.observe(firstCard);
       }
