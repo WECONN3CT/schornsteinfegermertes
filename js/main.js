@@ -18,7 +18,7 @@
     initSmoothScroll();
     initParallax();
     initBeforeAfterSlider();
-    initHeroVideoAutoplay();
+    initBackgroundVideos();
     initVideoOverlay();
     initVideoCtaFullscreen();
     initFormValidation();
@@ -181,31 +181,66 @@
   // ========================================
   // HERO VIDEO AUTOPLAY (robust)
   // ========================================
-  function initHeroVideoAutoplay() {
-    const heroVideo = document.querySelector('.hero-video');
-    if (!heroVideo) return;
-    // Ensure properties for iOS/Safari autoplay
-    heroVideo.muted = true;
-    heroVideo.setAttribute('muted', '');
-    heroVideo.playsInline = true;
-    heroVideo.setAttribute('playsinline', '');
+  function initBackgroundVideos() {
+    const videos = document.querySelectorAll('video[data-src]');
+    if (!videos.length) return;
 
-    const tryPlay = () => {
-      const playPromise = heroVideo.play();
+    // Bei "Datensparmodus" oder reduzierter Bewegung bleibt das Poster stehen.
+    const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    const saveData = !!(conn && conn.saveData);
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (saveData || reduceMotion) return;
+
+    const tryPlay = (video) => {
+      const playPromise = video.play();
       if (playPromise && typeof playPromise.then === 'function') {
         playPromise.catch(() => {
-          // Retry shortly if autoplay was momentarily blocked
-          setTimeout(() => heroVideo.play().catch(() => {}), 250);
+          setTimeout(() => video.play().catch(() => {}), 250);
         });
       }
     };
 
-    heroVideo.addEventListener('loadedmetadata', tryPlay);
-    heroVideo.addEventListener('canplay', tryPlay, { once: true });
+    const activate = (video) => {
+      if (video.dataset.loaded) return;
+      video.dataset.loaded = '1';
+      // Eigenschaften für Autoplay unter iOS/Safari
+      video.muted = true;
+      video.setAttribute('muted', '');
+      video.playsInline = true;
+      video.setAttribute('playsinline', '');
+      video.preload = 'auto';
+      video.src = video.dataset.src;
+      video.addEventListener('canplay', () => tryPlay(video), { once: true });
+      video.load();
+    };
+
+    // Erst nach dem Laden der Seite starten, damit das Video nichts blockiert.
+    const start = () => {
+      if (!('IntersectionObserver' in window)) {
+        videos.forEach(activate);
+        return;
+      }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          activate(entry.target);
+          io.unobserve(entry.target);
+        });
+      }, { rootMargin: '200px' });
+      videos.forEach((v) => io.observe(v));
+    };
+
+    if (document.readyState === 'complete') {
+      start();
+    } else {
+      window.addEventListener('load', start, { once: true });
+    }
+
+    // Nach Tab-Wechsel weiterlaufen lassen
     document.addEventListener('visibilitychange', () => {
-      if (!document.hidden) tryPlay();
+      if (document.hidden) return;
+      videos.forEach((v) => { if (v.dataset.loaded && v.paused) tryPlay(v); });
     });
-    tryPlay();
   }
 
   // ========================================

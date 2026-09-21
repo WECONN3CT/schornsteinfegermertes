@@ -8,7 +8,7 @@ claude<!DOCTYPE html>
     <title>Schornsteinfeger Michael Mertes | Bonn & Umgebung</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="icon" type="image/webp" href="images/logo.webp">
 
     <!-- Preconnect für externe Ressourcen -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,7 +17,7 @@ claude<!DOCTYPE html>
 
     <!-- Preload kritische Ressourcen -->
     <link rel="preload" href="css/style.css" as="style">
-    <link rel="preload" href="images/heromertes.png" as="image" fetchpriority="high">
+    <link rel="preload" href="images/heromertes.webp" as="image" fetchpriority="high">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
@@ -34,7 +34,7 @@ claude<!DOCTYPE html>
     <nav class="navbar">
         <div class="container">
             <a href="./">
-                <img src="images/logotransparent.png" alt="Schornsteinfeger Mertes Logo" class="logo">
+                <img src="images/logotransparent.webp" alt="Schornsteinfeger Mertes Logo" class="logo" decoding="async">
             </a>
 
             <ul class="nav-menu" id="primary-navigation">
@@ -65,9 +65,8 @@ claude<!DOCTYPE html>
 
     <!-- Hero Section -->
     <section class="hero hero--improved">
-        <video class="hero-video" autoplay muted playsinline loop poster="images/Header_Background.jpg" aria-hidden="true" preload="auto">
-            <source src="videos/herovideo.mp4" type="video/mp4">
-        </video>
+        <video class="hero-video" muted playsinline loop preload="none" aria-hidden="true"
+               poster="images/poster/hero-start.webp" data-src="videos/herovideo-bg.mp4"></video>
         <div class="container hero-inner">
             <div class="hero-copy">
                 <p class="section-subtitle">Schornsteinfeger in Bonn & Umgebung</p>
@@ -83,13 +82,13 @@ claude<!DOCTYPE html>
                     <a href="tel:+491711961771" class="btn btn-outline"><i class="fas fa-phone"></i> 0171 1961771</a>
                 </div>
                 <div class="hero-trust">
-                    <img src="images/TUeV-Logo.png" alt="TÜV Zertifiziert" loading="lazy">
-                    <img src="images/guetesiegel-komplett-schornsteinfeger.png" alt="Qualitätssiegel Schornsteinfeger" loading="lazy">
+                    <img src="images/TUeV-Logo.webp" alt="TÜV Zertifiziert" loading="lazy" decoding="async">
+                    <img src="images/guetesiegel-komplett-schornsteinfeger.webp" alt="Qualitätssiegel Schornsteinfeger" loading="lazy" decoding="async">
                 </div>
             </div>
             <div class="hero-visual">
                 <div class="hero-image">
-                    <img src="images/heromertes.png" alt="Schornsteinfeger Mertes – Hero Bild" loading="eager" decoding="async">
+                    <img src="images/heromertes.webp" alt="Schornsteinfeger Mertes – Hero Bild" loading="eager" decoding="async">
                 </div>
             </div>
         </div>
@@ -100,7 +99,7 @@ claude<!DOCTYPE html>
         <div class="container">
             <div class="image-text-section reveal">
                 <div class="image-wrapper image-wrapper--tall">
-                    <img src="images/MertesTeam.jpg" alt="Team Schornsteinfeger Mertes" loading="lazy">
+                    <img src="images/MertesTeam.webp" alt="Team Schornsteinfeger Mertes" loading="lazy" decoding="async">
                 </div>
                 <div>
                     <p class="section-subtitle">Michael Mertes</p>
@@ -126,7 +125,7 @@ claude<!DOCTYPE html>
             <div class="grid grid-4">
                 <div class="card reveal">
                     <div class="card-icon">
-                        <img src="images/icons/rauchundcomelder.png" alt="Rauch- und CO-Melder Icon">
+                        <img src="images/icons/rauchundcomelder.webp" alt="Rauch- und CO-Melder Icon" loading="lazy" decoding="async">
                     </div>
                     <h3>Rauch- & CO-Melder</h3>
                     <p>Installation und Wartung lebensrettender Melder. Gesetzlich vorgeschrieben und professionell umgesetzt.</p>
@@ -135,7 +134,7 @@ claude<!DOCTYPE html>
 
                 <div class="card reveal">
                     <div class="card-icon">
-                        <img src="images/icons/gashausschau.png" alt="Gashausschau Icon">
+                        <img src="images/icons/gashausschau.webp" alt="Gashausschau Icon" loading="lazy" decoding="async">
                     </div>
                     <h3>Gashausschau</h3>
                     <p>Professionelle Überprüfung Ihrer Gasinstallationen. Schutz vor Gasunfällen durch regelmäßige Kontrolle.</p>
@@ -144,7 +143,7 @@ claude<!DOCTYPE html>
 
                 <div class="card reveal">
                     <div class="card-icon">
-                        <img src="images/icons/kamerainspektion.png" alt="Kamerainspektion Icon">
+                        <img src="images/icons/kamerainspektion.webp" alt="Kamerainspektion Icon" loading="lazy" decoding="async">
                     </div>
                     <h3>Kamerainspektion</h3>
                     <p>Modernste Kameratechnik zur Inspektion von Schornsteinen und Lüftungsleitungen. Früherkennung von Schäden.</p>
@@ -153,7 +152,7 @@ claude<!DOCTYPE html>
 
                 <div class="card reveal">
                     <div class="card-icon">
-                        <img src="images/icons/schornsteinfegrarbeiten.png" alt="Schornsteinfegerarbeiten Icon">
+                        <img src="images/icons/schornsteinfegrarbeiten.webp" alt="Schornsteinfegerarbeiten Icon" loading="lazy" decoding="async">
                     </div>
                     <h3>Schornsteinfegerarbeiten</h3>
                     <p>Umfassende Reinigungs-, Mess- und Dokumentationsarbeiten an Ihren Feuerstätten. Professionell durchgeführt.</p>
@@ -162,7 +161,7 @@ claude<!DOCTYPE html>
                 
                 <div class="card reveal">
                     <div class="card-icon">
-                        <img src="images/icons/reinigunglüftungsanlagen.png" alt="Lüftungsanlagen Icon">
+                        <img src="images/icons/reinigunglüftungsanlagen.webp" alt="Lüftungsanlagen Icon" loading="lazy" decoding="async">
                     </div>
                     <h3>Reinigung von Lüftungsanlagen</h3>
                     <p>Hygienische Reinigung und Wartung Ihrer Lüftungsanlage für beste Luftqualität und Effizienz.</p>
@@ -180,7 +179,7 @@ claude<!DOCTYPE html>
 
                 <div class="card reveal">
                     <div class="card-icon">
-                        <img src="images/icons/icons neu/schornsteinneubau.png" alt="Schornsteinbau & Sanierung Icon">
+                        <img src="images/icons/icons neu/schornsteinneubau.webp" alt="Schornsteinbau & Sanierung Icon" loading="lazy" decoding="async">
                     </div>
                     <h3>Schornsteinbau & Sanierung</h3>
                     <p>Neubau, Sanierung und Modernisierung von Schornsteinen. Fachgerecht und zuverlässig umgesetzt.</p>
@@ -200,13 +199,13 @@ claude<!DOCTYPE html>
                     <p>Als moderner Schornsteinfeger tragen wir eine besondere Verantwortung für den Umweltschutz. Durch regelmäßige Inspektionen und fachgerechte Wartung Ihrer Feuerstätten sorgen wir für optimale Verbrennung und minimale Emissionen.</p>
                     <p>Unsere Messungen und Beratungen helfen Ihnen, Energie effizienter zu nutzen und gleichzeitig die Umwelt zu schonen. Gemeinsam für eine saubere Zukunft!</p>
                     <div style="display: flex; gap: 2rem; align-items: center; margin-top: 2rem;">
-                        <img src="images/TUeV-Logo.png" alt="TÜV Zertifiziert" style="max-width: 150px;" loading="lazy">
-                        <img src="images/guetesiegel-komplett-schornsteinfeger.png" alt="Qualitätssiegel Schornsteinfeger" style="max-width: 150px;" loading="lazy">
+                        <img src="images/TUeV-Logo.webp" alt="TÜV Zertifiziert" style="max-width: 150px;" loading="lazy" decoding="async">
+                        <img src="images/guetesiegel-komplett-schornsteinfeger.webp" alt="Qualitätssiegel Schornsteinfeger" style="max-width: 150px;" loading="lazy" decoding="async">
                     </div>
                     <a href="kontakt/" class="btn btn-gold mt-8">Kontakt aufnehmen</a>
                 </div>
                 <div class="image-wrapper image-wrapper--mission">
-                    <img src="images/teamdach.jpg" alt="Umweltschutz und Klimafreundlich" loading="lazy">
+                    <img src="images/teamdach.webp" alt="Umweltschutz und Klimafreundlich" loading="lazy" decoding="async">
                 </div>
             </div>
         </div>

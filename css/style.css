@@ -22,7 +22,7 @@
   transform: none;
   width: 100%;             /* auf Containerbreite begrenzen */
   height: 100%;            /* so hoch wie der Inhalt + extra Padding */
-  background: url('../images/teamamauto.jpg') center/cover no-repeat;
+  background: url('../images/teamamauto.webp') center/cover no-repeat;
   background-position: right center; /* Bild nach rechts ausrichten */
   background-size: 115%;   /* leicht herangezoomt, Position beibehalten */
   border-radius: inherit;
