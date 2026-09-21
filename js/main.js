@@ -689,19 +689,6 @@
   // UTILITY FUNCTIONS
   // ========================================
 
-  // Debounce function for performance
-  function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-      const later = () => {
-        clearTimeout(timeout);
-        func(...args);
-      };
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-    };
-  }
-
   // Throttle function for scroll events
   function throttle(func, limit) {
     let inThrottle;

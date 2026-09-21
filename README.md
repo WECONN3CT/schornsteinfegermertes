@@ -22,8 +22,10 @@ Eine moderne, beeindruckende Webseite für Schornsteinfegermeister Michael Merte
 
 ### Performance-Optimierungen
 - Minimale externe Abhängigkeiten
-- Optimierte Bilder
-- Lazy Loading vorbereitet
+- Alle Bilder als WebP, Icons auf Anzeigegröße begrenzt
+- `loading="lazy"` und `decoding="async"` auf allen Bildern unterhalb des Folds
+- Hintergrundvideos mit `preload="none"`, Start erst nach dem load-Event und
+  nur im Sichtbereich (IntersectionObserver); bis dahin zeigt ein Poster-Standbild
 - Mobile-First Ansatz
 
 ## 📁 Struktur
@@ -35,11 +37,12 @@ MertesWebseite/
 │   └── style.css                       # Modernes CSS mit Animationen
 ├── js/
 │   └── main.js                         # JavaScript für Interaktionen
-├── images/                             # Alle Bilder
-│   ├── logo.png
-│   ├── Header_Background.jpg
-│   ├── mertes-portrait.jpg
+├── images/                             # Alle Bilder (WebP)
+│   ├── logo.webp
+│   ├── heromertes.webp
+│   ├── poster/                         # Standbilder der Videos
 │   └── ...
+├── videos/                             # Hintergrund- und Detailvideos (MP4/H.264)
 ├── unsere-leistungen/
 │   ├── index.html                      # Leistungsübersicht
 │   ├── gashausschau/
@@ -47,6 +50,12 @@ MertesWebseite/
 │   ├── rauch-und-kohlenmonoxidmelder/
 │   │   └── index.html
 │   ├── kamerainspektion/
+│   │   └── index.html
+│   ├── energieberatung/
+│   │   └── index.html
+│   ├── lueftungsanlagenreinigung/
+│   │   └── index.html
+│   ├── schornsteinbau-und-sanierung/
 │   │   └── index.html
 │   └── freie-schornsteinfegerarbeiten/
 │       └── index.html
@@ -93,6 +102,9 @@ MertesWebseite/
 - **Rauch- & Kohlenmonoxidmelder** - Lebensrettende Melder-Systeme
 - **Kamerainspektion** - Moderne Diagnosetechnik
 - **Freie Schornsteinfegerarbeiten** - Reinigung und Messung
+- **Energieberatung** - Beratung und Fördermittel
+- **Reinigung von Lüftungsanlagen** - Hygienische Raumluft
+- **Schornsteinbau und Sanierung** - Neubau und Sanierung
 
 ### Rechtliche Seiten
 - **Impressum** - Rechtliche Pflichtangaben
@@ -122,8 +134,14 @@ Die Webseite kann auf jedem Standard-Webserver gehostet werden:
 #### GitHub Pages Hinweise
 - MP4-Videos müssen < 100 MB sein (GitHub Limit).
 - MOV wird von GitHub Pages nicht über LFS ausgeliefert – daher MP4 verwenden.
-- Empfohlene ffmpeg-Einstellungen:
-  - `ffmpeg -i input.mov -c:v libx264 -crf 22 -preset slow -pix_fmt yuv420p -c:a aac -b:a 160k -movflags +faststart output.mp4`
+- Kein HEVC/H.265 verwenden – Firefox und Geräte ohne Hardware-Decoder spielen
+  das nicht ab. Immer H.264 (`libx264`).
+- Stumme Hintergrundvideos ohne Tonspur exportieren (`-an`), max. 1080p.
+- Verwendete ffmpeg-Einstellungen:
+  - Hintergrundvideo: `ffmpeg -i input.mov -vf "scale=1280:-2,fps=25" -c:v libx264 -preset slow -crf 31 -pix_fmt yuv420p -an -movflags +faststart output.mp4`
+  - Video mit Ton: `ffmpeg -i input.mov -vf "scale=1920:-2,fps=25" -c:v libx264 -preset slow -crf 28 -pix_fmt yuv420p -c:a aac -b:a 96k -movflags +faststart output.mp4`
+  - Poster-Standbild: `ffmpeg -ss 1 -i output.mp4 -frames:v 1 -vf "scale=1600:-2" poster.jpg` und anschließend `cwebp -q 82 poster.jpg -o poster.webp`
+- Bilder: `cwebp -q 82 -resize <breite> 0 -metadata none input.png -o output.webp`
 
 ## 📱 Responsive Breakpoints
 
@@ -140,7 +158,8 @@ In `css/style.css` unter `:root` die CSS-Custom-Properties anpassen.
 Texte direkt in den HTML-Dateien editieren.
 
 ### Bilder austauschen
-Bilder im `images/` Ordner ersetzen, Dateinamen in HTML anpassen.
+Bilder im `images/` Ordner ersetzen (als WebP, siehe cwebp-Befehl oben),
+Dateinamen in HTML anpassen.
 
 ## 📞 Kontakt
 
