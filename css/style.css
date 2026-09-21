@@ -417,7 +417,8 @@ img {
   animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0s forwards;
 }
 /* Video als Hero-Hintergrund */
-.hero .hero-video {
+.hero .hero-video,
+.hero .hero-bg {
   position: absolute;
   top: 0;
   left: 0;
@@ -611,7 +612,8 @@ img {
     padding-right: var(--space-4);
     row-gap: var(--space-8);
   }
-  .hero .hero-video {
+  .hero .hero-video,
+.hero .hero-bg {
     object-position: center 40%; /* Fokus etwas höher */
   }
 }
@@ -628,7 +630,8 @@ img {
   .hero--improved .hero-visual {
     display: none;
   }
-  .hero .hero-video {
+  .hero .hero-video,
+.hero .hero-bg {
     object-position: center 35%;
   }
   /* Typografie und Spacing für bessere Lesbarkeit auf Phones */
