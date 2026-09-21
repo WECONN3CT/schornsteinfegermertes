@@ -2049,3 +2049,17 @@ footer {
     font-size: 1.125rem;
   }
 }
+
+/* ==========================================
+   HERO RAUCHMELDER – Bildausschnitt
+   Querformat: Melder sitzt oben, daher nach oben ausrichten.
+   Phones: Hochformat-Fassung, mittig ist dort richtig.
+   ========================================== */
+.hero--rauchmelder .hero-bg {
+  object-position: center 38%;
+}
+@media (max-width: 640px) {
+  .hero--rauchmelder .hero-bg {
+    object-position: center 50%;
+  }
+}
