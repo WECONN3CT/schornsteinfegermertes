@@ -125,6 +125,20 @@ MertesWebseite/
 ### Lokal öffnen
 Einfach `index.html` in einem modernen Browser öffnen (Chrome, Firefox, Safari, Edge).
 
+Zum Testen besser über einen lokalen Server. **Nicht** `python -m http.server`
+verwenden: der beantwortet keine Range-Requests und liefert stattdessen immer
+die ganze Datei aus. Videos lassen sich damit nicht spulen – der Regler im
+Player bewegt sich, das Bild springt aber nicht mit. Das ist ein Problem des
+Servers, nicht der Videodateien. Stattdessen z. B.:
+
+```
+npx serve .          # oder
+php -S localhost:8765
+```
+
+GitHub Pages beantwortet Range-Requests korrekt (HTTP 206), live funktioniert
+das Spulen also.
+
 ### Deployment
 Die Webseite kann auf jedem Standard-Webserver gehostet werden:
 - Alle Pfade sind relativ
